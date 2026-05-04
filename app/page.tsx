@@ -450,7 +450,7 @@ export default function Home() {
       <Section className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr]">
         <Card className="p-6 sm:p-8">
           <p className="text-sm font-black uppercase tracking-[0.18em] text-[#77f7b7]">
-            Built by an Etsy seller who needed this
+            Quick insight for Etsy shop owners
           </p>
           <h2 className="mt-3 text-3xl font-black sm:text-4xl">Built by an Etsy seller who needed this</h2>
           <p className="mt-4 max-w-xl text-lg leading-8 text-white/72">
@@ -560,9 +560,11 @@ export default function Home() {
         <Section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.18em] text-[#77f7b7]">Support</p>
-            <h2 className="mt-3 text-3xl font-black sm:text-4xl">Need help importing your Etsy CSV or understanding your numbers?</h2>
+            <h2 className="mt-3 text-3xl font-black sm:text-4xl">
+              Need help importing your Etsy CSV or understanding your numbers?
+            </h2>
             <a
-              className="mt-5 inline-flex text-base font-black text-[#77f7b7] underline decoration-white/20 underline-offset-4 hover:text-white"
+              className="mt-5 inline-flex min-h-11 items-center rounded-full border border-[#24d982]/25 bg-[#092216] px-4 text-base font-black text-[#77f7b7] shadow-[0_12px_30px_rgba(0,0,0,0.18)] transition hover:border-[#24d982]/45 hover:bg-[#0b2a1a] hover:text-white"
               href="mailto:support@truetakehome.app"
             >
               support@truetakehome.app
@@ -594,11 +596,17 @@ export default function Home() {
       <footer className="border-t border-white/8 px-5 py-8">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 text-sm text-white/52 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-bold text-white">TrueTakeHome © 2026</p>
-          <nav className="flex gap-5">
-            <a className="hover:text-white" href="/privacy">
+          <nav className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Link
+              className="inline-flex min-h-10 items-center rounded-full border border-white/10 bg-white/[0.03] px-4 font-semibold text-white/72 transition hover:border-[#24d982]/35 hover:bg-[#092216] hover:text-white"
+              href="/privacy"
+            >
               Privacy
-            </a>
-            <a className="hover:text-white" href="#support">
+            </Link>
+            <a
+              className="inline-flex min-h-10 items-center rounded-full border border-white/10 bg-white/[0.03] px-4 font-semibold text-white/72 transition hover:border-[#24d982]/35 hover:bg-[#092216] hover:text-white"
+              href="mailto:support@truetakehome.app"
+            >
               Support
             </a>
           </nav>

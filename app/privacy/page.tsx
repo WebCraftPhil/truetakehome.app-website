@@ -41,10 +41,13 @@ export default function PrivacyPage() {
   return (
     <main className="min-h-screen bg-[#06131f] text-white">
       <header className="mx-auto flex w-full max-w-4xl items-center justify-between px-5 py-5 sm:px-6 lg:px-8">
-        <Link className="text-sm font-black text-[#77f7b7] hover:text-white" href="/">
+        <Link
+          className="inline-flex min-h-10 items-center rounded-full border border-[#24d982]/25 bg-[#092216] px-4 text-sm font-black text-[#77f7b7] transition hover:border-[#24d982]/45 hover:bg-[#0b2a1a] hover:text-white"
+          href="/"
+        >
           TrueTakeHome
         </Link>
-        <Link className="text-sm font-bold text-white/58 hover:text-white" href="/#support">
+        <Link className="text-sm font-bold text-white/58 transition hover:text-white" href="/#support">
           Support
         </Link>
       </header>
@@ -80,7 +83,7 @@ export default function PrivacyPage() {
           <article className="rounded-lg border border-white/10 bg-white/[0.045] p-5">
             <h2 className="text-xl font-black">Contact</h2>
             <a
-              className="mt-4 inline-flex text-sm font-black text-[#77f7b7] underline decoration-white/20 underline-offset-4 hover:text-white"
+              className="mt-4 inline-flex min-h-10 items-center rounded-full border border-[#24d982]/25 bg-[#092216] px-4 text-sm font-black text-[#77f7b7] transition hover:border-[#24d982]/45 hover:bg-[#0b2a1a] hover:text-white"
               href="mailto:support@truetakehome.app"
             >
               support@truetakehome.app
