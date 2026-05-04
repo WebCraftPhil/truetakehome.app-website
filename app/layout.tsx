@@ -3,6 +3,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://truetakehome.app"),
+  // These asset paths are root-relative and assume the app is deployed at the
+  // site root. If we ever add a basePath, these should be centralized first.
   title: "TrueTakeHome | See Your Real Etsy Profit",
   description:
     "Find your real Etsy profit after fees, production costs, ads, and tools.",

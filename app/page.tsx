@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
@@ -37,7 +38,7 @@ function parseCsv(text: string, fileName: string): Results {
     .filter(Boolean);
 
   if (lines.length < 2) {
-    return { ...demoResults, fileName };
+    throw new Error("That file doesn't look like a valid CSV export.");
   }
 
   const headers = lines[0].split(",").map((header) => header.toLowerCase());
@@ -76,6 +77,23 @@ function Card({
       className={`rounded-lg border border-white/10 bg-white/[0.045] shadow-[0_24px_80px_rgba(0,0,0,0.22)] ${className}`}
     >
       {children}
+    </div>
+  );
+}
+
+function LogoLink() {
+  return (
+    <Link className="flex items-center gap-3" href="/">
+      <Image src="/logo.png" alt="TrueTakeHome" width={40} height={40} priority className="rounded-md" />
+      <span className="text-base font-black">TrueTakeHome</span>
+    </Link>
+  );
+}
+
+function ImportErrorBanner({ message }: { message: string }) {
+  return (
+    <div className="rounded-md border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm font-semibold text-red-100">
+      {message}
     </div>
   );
 }
@@ -188,9 +206,11 @@ function DemoPanel() {
 function ResultsScreen({
   results,
   onUpload,
+  errorMessage,
 }: {
   results: Results;
   onUpload: () => void;
+  errorMessage: string | null;
 }) {
   const lockedProfit = Math.max(0, results.payout - results.costs);
   const lockedMargin = results.sales > 0 ? Math.round((lockedProfit / results.sales) * 100) : 0;
@@ -198,13 +218,15 @@ function ResultsScreen({
   return (
     <main className="min-h-screen bg-[#06131f] text-white">
       <header className="mx-auto flex w-full max-w-6xl items-center px-5 py-5 sm:px-6 lg:px-8">
-        <a className="flex items-center gap-3" href="#">
-          <Image src="/logo.png" alt="TrueTakeHome" width={40} height={40} priority className="rounded-md" />
-          <span className="text-base font-black">TrueTakeHome</span>
-        </a>
+        <LogoLink />
       </header>
 
       <Section className="max-w-4xl pt-8">
+        {errorMessage ? (
+          <div className="mb-6">
+            <ImportErrorBanner message={errorMessage} />
+          </div>
+        ) : null}
         <p className="text-sm font-black uppercase tracking-[0.18em] text-[#77f7b7]">
           {results.fileName} imported
         </p>
@@ -272,12 +294,35 @@ export default function Home() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [results, setResults] = useState<Results | null>(null);
   const [showPaste, setShowPaste] = useState(false);
+  const [importError, setImportError] = useState<string | null>(null);
 
   const openUpload = () => fileInputRef.current?.click();
 
   const handleCsv = (text: string, fileName = "Pasted CSV") => {
-    setResults(parseCsv(text, fileName));
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    try {
+      setImportError(null);
+      setResults(parseCsv(text, fileName));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (error) {
+      setResults(null);
+      setImportError(
+        error instanceof Error ? error.message : "We couldn't parse that CSV. Please try another file.",
+      );
+    }
+  };
+
+  const handleFileSelection = async (file: File) => {
+    try {
+      const text = await file.text();
+      handleCsv(text, file.name);
+    } catch (error) {
+      setResults(null);
+      setImportError(
+        error instanceof Error
+          ? `We couldn't read "${file.name}". Please upload a valid CSV file.`
+          : "We couldn't read that file. Please upload a valid CSV file.",
+      );
+    }
   };
 
   if (results) {
@@ -291,11 +336,11 @@ export default function Home() {
           onChange={(event) => {
             const file = event.target.files?.[0];
             if (!file) return;
-            file.text().then((text) => handleCsv(text, file.name));
+            void handleFileSelection(file);
             event.target.value = "";
           }}
         />
-        <ResultsScreen results={results} onUpload={openUpload} />
+        <ResultsScreen results={results} onUpload={openUpload} errorMessage={importError} />
       </>
     );
   }
@@ -310,20 +355,22 @@ export default function Home() {
         onChange={(event) => {
           const file = event.target.files?.[0];
           if (!file) return;
-          file.text().then((text) => handleCsv(text, file.name));
+          void handleFileSelection(file);
           event.target.value = "";
         }}
       />
 
       <header className="mx-auto flex w-full max-w-6xl items-center px-5 py-5 sm:px-6 lg:px-8">
-        <a className="flex items-center gap-3" href="#">
-          <Image src="/logo.png" alt="TrueTakeHome" width={40} height={40} priority className="rounded-md" />
-          <span className="text-base font-black">TrueTakeHome</span>
-        </a>
+        <LogoLink />
       </header>
 
       <Section className="grid items-center gap-10 pb-10 pt-8 lg:grid-cols-[1.02fr_0.98fr] lg:pt-12">
         <div>
+          {importError ? (
+            <div className="mb-5 max-w-xl">
+              <ImportErrorBanner message={importError} />
+            </div>
+          ) : null}
           <p className="mb-4 text-sm font-black uppercase tracking-[0.18em] text-[#77f7b7]">
             We show you the number Etsy does not.
           </p>
