@@ -153,6 +153,27 @@ function DemoCards() {
   );
 }
 
+const supportFaqs = [
+  {
+    question: "What CSV do I upload?",
+    answer: "Upload your Etsy payment CSV/export from Etsy.",
+  },
+  {
+    question: "Do you store my Etsy data?",
+    answer: "No. TrueTakeHome is designed to keep your data local unless stated otherwise.",
+  },
+  {
+    question: "Is this tax or accounting advice?",
+    answer:
+      "No. TrueTakeHome provides estimates to help sellers understand profitability. It is not tax, legal, or accounting advice.",
+  },
+  {
+    question: "Why is my profit lower than expected?",
+    answer:
+      "Because production, shipping, ads, fees, and monthly tools reduce what you actually keep.",
+  },
+];
+
 function DemoPanel() {
   const rows = [
     ["Etsy sales", "$8,420"],
@@ -277,7 +298,7 @@ function ResultsScreen({
               </PrimaryCta>
             </div>
             <p className="mt-3 text-center text-sm font-bold text-white/56">
-              One-time unlock. Takes 2 seconds. No subscription.
+              Free preview. No login required.
             </p>
           </div>
         </Card>
@@ -372,20 +393,23 @@ export default function Home() {
             </div>
           ) : null}
           <p className="mb-4 text-sm font-black uppercase tracking-[0.18em] text-[#77f7b7]">
-            We show you the number Etsy does not.
+            Reveal what you actually keep.
           </p>
           <h1 className="max-w-3xl text-5xl font-black leading-[0.98] tracking-normal text-white sm:text-6xl lg:text-7xl">
             Most Etsy sellers think their payout is profit. It is not.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-white/72 sm:text-xl">
-            You made $11,727... but after fees, production, and ads, your real profit is much lower.
+            TrueTakeHome shows what you actually keep after Etsy fees, production costs, ads, shipping, and tools.
+          </p>
+          <p className="mt-4 max-w-2xl text-base font-semibold leading-7 text-white/56 sm:text-lg">
+            Upload your Etsy CSV. Add your costs. Reveal your real take-home.
           </p>
           <div className="mt-8 max-w-sm">
             <PrimaryCta fullWidth onClick={openUpload}>
               Find my real profit
             </PrimaryCta>
             <p className="mt-3 text-center text-sm font-bold text-white/68">
-              Free. Takes 10 seconds. No login required.
+              Free preview. No login required.
             </p>
             <button
               className="mt-3 block w-full text-center text-sm font-bold text-white/46 hover:text-white"
@@ -422,6 +446,32 @@ export default function Home() {
       </Section>
 
       <DemoCards />
+
+      <Section className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr]">
+        <Card className="p-6 sm:p-8">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#77f7b7]">
+            Built by an Etsy seller who needed this
+          </p>
+          <h2 className="mt-3 text-3xl font-black sm:text-4xl">Built by an Etsy seller who needed this</h2>
+          <p className="mt-4 max-w-xl text-lg leading-8 text-white/72">
+            I built TrueTakeHome after realizing my Etsy payout did not tell the full story. Even as a top-performing seller,
+            I needed a clearer way to see what I actually kept after costs.
+          </p>
+        </Card>
+
+        <div className="grid gap-3">
+          {[
+            "No login required",
+            "Your data stays local",
+            "Built for quick profit checks",
+          ].map((item) => (
+            <div className="flex items-center gap-3 rounded-md bg-white/[0.045] p-4" key={item}>
+              <span className="h-2.5 w-2.5 rounded-full bg-[#24d982]" />
+              <p className="font-bold text-white/82">{item}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
 
       <Section className="grid gap-8 lg:grid-cols-2">
         <div>
@@ -479,7 +529,7 @@ export default function Home() {
                 Reveal my real profit
               </PrimaryCta>
               <p className="mt-3 text-center text-sm font-bold text-white/56">
-                One-time unlock. Takes 2 seconds. No subscription.
+                Free preview. No login required.
               </p>
             </div>
           </div>
@@ -506,15 +556,27 @@ export default function Home() {
         </Card>
       </Section>
 
-      <section className="border-y border-white/8 bg-[#071827]">
-        <Section className="grid gap-3 sm:grid-cols-3">
-          {["No login required", "Your data stays local", "We do not store your Etsy data"].map(
-            (item) => (
-              <div className="rounded-md border border-white/10 bg-[#06131f] p-5" key={item}>
-                <p className="font-black text-white">{item}</p>
-              </div>
-            ),
-          )}
+      <section className="border-y border-white/8 bg-[#071827]" id="support">
+        <Section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#77f7b7]">Support</p>
+            <h2 className="mt-3 text-3xl font-black sm:text-4xl">Need help importing your Etsy CSV or understanding your numbers?</h2>
+            <a
+              className="mt-5 inline-flex text-base font-black text-[#77f7b7] underline decoration-white/20 underline-offset-4 hover:text-white"
+              href="mailto:support@truetakehome.app"
+            >
+              support@truetakehome.app
+            </a>
+          </div>
+
+          <div className="grid gap-3">
+            {supportFaqs.map((item) => (
+              <details className="rounded-md border border-white/10 bg-[#06131f] p-5" key={item.question}>
+                <summary className="cursor-pointer list-none font-black text-white">{item.question}</summary>
+                <p className="mt-3 text-sm leading-7 text-white/68">{item.answer}</p>
+              </details>
+            ))}
+          </div>
         </Section>
       </section>
 
@@ -531,12 +593,12 @@ export default function Home() {
 
       <footer className="border-t border-white/8 px-5 py-8">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 text-sm text-white/52 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-bold text-white">TrueTakeHome</p>
+          <p className="font-bold text-white">TrueTakeHome © 2026</p>
           <nav className="flex gap-5">
             <a className="hover:text-white" href="/privacy">
               Privacy
             </a>
-            <a className="hover:text-white" href="mailto:support@truetakehome.app">
+            <a className="hover:text-white" href="#support">
               Support
             </a>
           </nav>

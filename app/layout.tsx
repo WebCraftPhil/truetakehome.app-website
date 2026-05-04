@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const siteUrl = new URL("https://truetakehome.app");
+const assetUrl = (path: string) => new URL(path, siteUrl).toString();
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://truetakehome.app"),
-  // These asset paths are root-relative and assume the app is deployed at the
-  // site root. If we ever add a basePath, these should be centralized first.
   title: "TrueTakeHome | See Your Real Etsy Profit",
   description:
     "Find your real Etsy profit after fees, production costs, ads, and tools.",
@@ -19,11 +19,11 @@ export const metadata: Metadata = {
     title: "TrueTakeHome | See Your Real Etsy Profit",
     description:
       "Etsy shows you revenue. TrueTakeHome shows what you actually keep.",
-    url: "https://truetakehome.app",
+    url: siteUrl.toString(),
     siteName: "TrueTakeHome",
     images: [
       {
-        url: "/logo.png",
+        url: assetUrl("/logo.png"),
         width: 1254,
         height: 1254,
         alt: "TrueTakeHome logo",
@@ -37,11 +37,11 @@ export const metadata: Metadata = {
     title: "TrueTakeHome | See Your Real Etsy Profit",
     description:
       "See what you actually kept after Etsy fees, production, ads, and tools.",
-    images: ["/logo.png"],
+    images: [assetUrl("/logo.png")],
   },
   icons: {
-    icon: "/favicon.png",
-    apple: "/favicon.png",
+    icon: assetUrl("/favicon.png"),
+    apple: assetUrl("/favicon.png"),
   },
 };
 
