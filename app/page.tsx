@@ -603,12 +603,12 @@ export default function Home() {
             >
               Privacy
             </Link>
-            <a
+            <Link
               className="inline-flex min-h-10 items-center rounded-full border border-white/10 bg-white/[0.03] px-4 font-semibold text-white/72 transition hover:border-[#24d982]/35 hover:bg-[#092216] hover:text-white"
-              href="mailto:support@truetakehome.app"
+              href="/support"
             >
               Support
-            </a>
+            </Link>
           </nav>
         </div>
       </footer>

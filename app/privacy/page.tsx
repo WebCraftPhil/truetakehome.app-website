@@ -47,7 +47,7 @@ export default function PrivacyPage() {
         >
           TrueTakeHome
         </Link>
-        <Link className="text-sm font-bold text-white/58 transition hover:text-white" href="/#support">
+        <Link className="text-sm font-bold text-white/58 transition hover:text-white" href="/support">
           Support
         </Link>
       </header>
